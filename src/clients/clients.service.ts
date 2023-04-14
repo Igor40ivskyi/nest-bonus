@@ -18,5 +18,12 @@ export class ClientsService {
     const clientForUpdate = this.clients[id - 1];
     const updatedClient = { ...clientForUpdate, ...clientData };
     this.clients[id - 1] = updatedClient;
+
+    return updatedClient;
+  }
+
+  async deleteClient(id) {
+    const deletedClient = this.clients.splice(id - 1, 1)[0];
+    return deletedClient;
   }
 }

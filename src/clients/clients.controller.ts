@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -10,7 +11,11 @@ import {
   Res,
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
+import { CreateClientDto } from './dto/createClient.dto';
+import { UpdateClientDto } from './dto/updateClient.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('clients')
 @Controller('clients')
 export class ClientsController {
   constructor(private clientsService: ClientsService) {}
@@ -23,7 +28,11 @@ export class ClientsController {
   }
 
   @Post()
-  async createClient(@Req() req: any, @Res() res: any, @Body() body: any) {
+  async createClient(
+    @Req() req: any,
+    @Res() res: any,
+    @Body() body: CreateClientDto,
+  ) {
     const createdClient = await this.clientsService.createClient(body);
     return res.status(HttpStatus.CREATED).json(createdClient);
   }
@@ -32,9 +41,27 @@ export class ClientsController {
   async updateClient(
     @Req() req: any,
     @Res() res: any,
-    @Body() body: any,
+    @Body() body: UpdateClientDto,
     @Param() params: any,
   ) {
-    this.clientsService.updateClient(body, params.clientId);
+    const updatedClient = await this.clientsService.updateClient(
+      body,
+      params.clientId,
+    );
+
+    return res.status(201).json({
+      message: 'Client has been updated succesfully',
+      data: updatedClient,
+    });
+  }
+
+  @Delete('/:clientId')
+  async deleteClient(@Req() req: any, @Res() res: any, @Param() params: any) {
+    const deletedClient = this.clientsService.deleteClient(params.clientId);
+
+    return res.status(201).json({
+      message: 'Client has been deletede succesfully',
+      data: deletedClient,
+    });
   }
 }
