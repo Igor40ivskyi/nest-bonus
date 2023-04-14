@@ -4,10 +4,12 @@ import {
   Delete,
   Get,
   HttpStatus,
+  Param,
   Patch,
   Post,
   Req,
   Res,
+  HttpCode,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/users.dto';
 import { UsersService } from './users.service';
@@ -27,9 +29,7 @@ export class UsersController {
     @Body() body: CreateUserDto,
     @Res() res: any,
   ) {
-    return res
-      .status(HttpStatus.CREATED)
-      .json(await this.userService.createUser(body));
+    return res.json(await this.userService.createUser(body));
   }
 
   @Delete('/:id')
