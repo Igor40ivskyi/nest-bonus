@@ -19,4 +19,19 @@ export class UsersService {
       },
     });
   }
+
+  async getUsersList(): Promise<User[]> {
+    return this.prismaService.user.findMany({});
+  }
+
+  async getUserById(userId: string) {
+    return this.prismaService.user.findFirst({
+      where: { id: Number(userId) },
+      select: {
+        name: true,
+        city: true,
+        age: true,
+      },
+    });
+  }
 }

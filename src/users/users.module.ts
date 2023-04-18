@@ -6,7 +6,7 @@ import { UsersService } from './users.service';
 import { PetsService } from '../pets/pets.service';
 
 @Module({
-  imports: [PetsModule, PrismaService],
+  imports: [PetsModule],
   controllers: [UsersController],
   providers: [PrismaService, UsersService, PetsService],
 })

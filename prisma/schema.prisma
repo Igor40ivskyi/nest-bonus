@@ -16,6 +16,7 @@ model User {
   name   String
   city   String?
   age    Int?
+  avatar String?
   status Boolean? @default(false)
   pets   Pets[]
 }
