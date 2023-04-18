@@ -46,15 +46,33 @@ export class UsersController {
     @Body() body: CreateUserDto,
     @Res() res: any,
   ) {
-    return res.json(await this.userService.createUser(body));
+    return res
+      .status(HttpStatus.CREATED)
+      .json(await this.userService.createUser(body));
   }
 
-  @Delete('/:id')
-  async deleteUser() {}
+  @Delete('/:userId')
+  async deleteUser(
+    @Req() req: any,
+    @Res() res: any,
+    @Param('userId') userId: string,
+  ) {
+    return res.status(HttpStatus.OK).json({
+      message: 'User has been deleted successfully',
+      data: await this.userService.deleteUser(userId),
+    });
+  }
 
-  @Patch('/:id')
-  async updateUser() {}
-
-  @Post('/animals/:id')
-  async addNewPet() {}
+  @Patch('/:userId')
+  async updateUser(
+    @Req() req: any,
+    @Res() res: any,
+    @Param('userId') userId: string,
+    @Body() body: any,
+  ) {
+    return res.json({
+      message: 'user has been updated successfully',
+      data: await this.userService.updateUser(userId, body),
+    });
+  }
 }

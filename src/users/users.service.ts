@@ -34,4 +34,17 @@ export class UsersService {
       },
     });
   }
+
+  async deleteUser(userId: string) {
+    return this.prismaService.user.delete({
+      where: { id: Number(userId) },
+    });
+  }
+
+  async updateUser(userId: string, updateData: any) {
+    return this.prismaService.user.update({
+      where: { id: Number(userId) },
+      data: { ...updateData },
+    });
+  }
 }

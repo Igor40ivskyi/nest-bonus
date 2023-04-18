@@ -18,10 +18,10 @@ model User {
   age    Int?
   avatar String?
   status Boolean? @default(false)
-  pets   Pets[]
+  pets   Pet[]
 }
 
-model Pets {
+model Pet {
   id      Int     @id @default(autoincrement())
   name    String
   type    String
