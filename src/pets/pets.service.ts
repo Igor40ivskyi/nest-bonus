@@ -13,6 +13,7 @@ export class PetsService {
         name: petData.name,
         type: petData.type,
         status: petData.status,
+        ownerId: petData.ownerId,
       },
     });
   }

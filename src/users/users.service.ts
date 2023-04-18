@@ -27,10 +27,8 @@ export class UsersService {
   async getUserById(userId: string) {
     return this.prismaService.user.findFirst({
       where: { id: Number(userId) },
-      select: {
-        name: true,
-        city: true,
-        age: true,
+      include: {
+        pets: true,
       },
     });
   }
