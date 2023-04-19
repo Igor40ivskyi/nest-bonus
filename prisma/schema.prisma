@@ -25,6 +25,8 @@ model Pet {
   id      Int     @id @default(autoincrement())
   name    String
   type    String
+  image   String?
+  logo    String?
   status  Boolean @default(false)
   owner   User?   @relation(fields: [ownerId], references: [id])
   ownerId Int?
